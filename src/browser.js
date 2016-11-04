@@ -2,17 +2,11 @@
 
 var path = require('path');
 var axon = require('axon');
-var spawn = require('cross-spawn-async');
+var spawn = require('cross-spawn');
+var electronpath = require('electron');
 
-var electronpath = require('electron-prebuilt');
 var app = path.join(__dirname, '../', 'electron-service');
 var sock = axon.socket('req');
-
-var startElectron = function () {
-	spawn(electronpath, ['.'], {
-		cwd: app
-	});
-};
 
 var bindSocketPromise;
 var bindSocket = function () {
@@ -21,7 +15,7 @@ var bindSocket = function () {
 	}
 
 	bindSocketPromise = new Promise(function (resolve) {
-		sock.bind(undefined, 'localhost', function () {
+		sock.bind(0, 'localhost', function () {
 			process.env.ELECTRON_SCREENSHOT_PORT = sock.server.address().port;
 			resolve();
 		});
@@ -78,10 +72,16 @@ module.exports = {
 	},
 
 	createBrowser: function () {
+		var self = this;
 		this.count++;
 		return bindSocket()
 		.then(function () {
-			startElectron();
+			spawn(electronpath, ['.'], {
+				cwd: app
+			})
+			.once('close', function () {
+				self.count--;
+			});
 		});
 	},
 
@@ -97,6 +97,6 @@ module.exports = {
 		}
 		sock.close();
 		bindSocketPromise = undefined;
-		this.browserCount = 0;
+		this.count = 0;
 	}
 };

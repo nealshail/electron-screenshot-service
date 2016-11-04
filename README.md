@@ -44,12 +44,12 @@ In addition to [all options](http://electron.atom.io/docs/v0.36.5/api/browser-wi
 
 ##### delay
 
-Type: `number` *(seconds)*  
+Type: `number` *(milliseconds)*  
 Default: `0`
 
 Delay capturing the screenshot.
 
-Useful when the site does things after load that you want to capture.
+Useful when the site does things after loading that you want to capture.
 
 ##### width
 
@@ -87,6 +87,20 @@ Default: `undefined`
 
 This css will be injected into the page before the screenshot is taken.
 
+##### js
+
+Type: `String`  
+Default: `undefined`
+
+It must contain a function definition that takes on parameter e.g.
+```js
+js: 'function(takeScreenshot){ /*Do some stuff*/ takeScreenshot();}'
+```
+or
+```js
+js: 'takeScreenshot => { /*Do some stuff*/ takeScreenshot();}'
+```
+
 ##### transparent
 
 Type: `Boolean`  
@@ -112,6 +126,90 @@ Scale the number of electron processes to `scale` processes. This will round-rob
 jobs across `scale` instances.
 
 # Changelog
+
+##### `4.0.2`
+
+* Update to `electron@1.4.5`
+* Add version to sub-package fixing [#33](https://github.com/FWeinb/electron-screenshot-service/issues/33)
+
+##### `4.0.1`
+
+* Update to `electron@1.4.1`
+
+##### `4.0.0`
+
+* Update to `electron@1.4.0`
+
+##### `3.3.1`
+
+* Update to `electron@1.3.4`
+
+##### `3.3.0`
+
+* Update to `electron@1.3.1`
+
+##### `3.2.3`
+
+* Fix PORT bug on windows (Thanks to [peerbolte](https://github.com/FWeinb/electron-screenshot-service/pull/26))
+
+##### `3.2.2`
+
+* Update to `electron@1.2.7`
+
+##### `3.2.1`
+
+* Fix post install script on windows
+
+##### `3.2.0`
+
+* Update to `electron-screenshot-app@3.1.0`
+* Support `options.js`
+
+##### `3.1.3`
+
+* Update to `electron@1.2.6`
+* Fix bug in keeping `browserCount` correct. (Thanks to [jerbob92](https://github.com/FWeinb/electron-screenshot-service/pull/22))
+
+##### `3.1.2`
+
+* Update to `electron@1.2.5`
+
+##### `3.1.1`
+
+* Fix bug that prevent running in node `^6.0.0`
+
+##### `3.1.0`
+
+* Update to `electron@1.2.0`
+* Use `cross-spawn` insated of `cross-spawn-async`
+* Update dependencies
+
+##### `3.0.0`
+
+* Update to `electron@1.1.0`
+* Update to `electron-screenshot-app@3.0.0`
+
+##### `2.3.1`
+
+* Update to `electron@0.37.7`
+
+##### `2.3.0`
+
+* Update to `electron@0.37.2`
+
+##### `2.2.1`
+
+* Fix a bug in `count` not being updated when an electron process dies (Thanks to [asafyish](https://github.com/asafyish))
+* Update to `electron@0.36.8`
+
+##### `2.2.1`
+
+* Fix installation on windows (#14)
+
+##### `2.2.0`
+
+* Upgrade to `electron@0.36.7`.
+* Update to `electron-screenshot-app@2.2.0`
 
 ##### `2.1.0`
 

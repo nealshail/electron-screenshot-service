@@ -1,15 +1,14 @@
 'use strict';
 
-const app = require('app');
+const {app} = require('electron');
 const screenshot = require('electron-screenshot-app');
 const sock = require('axon').socket('rep');
 
 const terminate = () => {
-	app.terminate();
 	app.quit();
 };
 
-sock.connect(parseInt(process.env.ELECTRON_SCREENSHOT_PORT, 10));
+sock.connect(parseInt(process.env.ELECTRON_SCREENSHOT_PORT, 10),  process.env.HOST || 'localhost');
 
 app.on('window-all-closed', () => {});
 app.on('ready', () => {
